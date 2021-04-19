@@ -66,5 +66,4 @@ function closeModalOnPressEsc(evt) {
     }
     onModalClose();
     window.removeEventListener('keydown', closeModalOnPressEsc);
-    
 }
