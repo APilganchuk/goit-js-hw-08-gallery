@@ -6,14 +6,14 @@ const refs = {
     modalOverlay: document.querySelector('.lightbox__overlay'),
     modalContent: document.querySelector('.lightbox__content'),
     currentImg: document.querySelector('.lightbox__image'),
-    OnBtnCloseModal: document.querySelector('[data-action="close-lightbox"]'),
+    onBtnCloseModal: document.querySelector('[data-action="close-lightbox"]'),
 };
 
 const makeGalleryImageMarkup = ({ preview, original, description }) => {
     return `<li class="gallery__item">
   <a
     class="gallery__link"
-    href="#"
+    href="${original}"
   >
     <img
       class="gallery__image"
@@ -39,19 +39,25 @@ function onModalOpen(evt) {
 
     showCurrentImage(evt);
     // слушатели событий для закрытия мод.окна разными способами
-    refs.OnBtnCloseModal.addEventListener('click', onModalClose);
+    refs.onBtnCloseModal.addEventListener('click', onModalClose);
     refs.modalOverlay.addEventListener('click', closeModalOnClickOverlay);
     window.addEventListener('keydown', closeModalOnPressEsc);
 }
 
 function showCurrentImage(evt) {
+    evt.preventDefault();
     refs.currentImg.src = evt.target.dataset.source;
     refs.currentImg.alt = evt.target.alt;
+    console.log(refs.currentImg);
 }
 
 function onModalClose() {
     refs.modal.classList.remove('is-open');
     removeAttrCurrentImg();
+
+    refs.onBtnCloseModal.removeEventListener('click', onModalClose);
+    refs.modalOverlay.removeEventListener('click', closeModalOnClickOverlay);
+    window.removeEventListener('keydown', closeModalOnPressEsc);
 }
 function removeAttrCurrentImg() {
     refs.currentImg.src = '';
