@@ -48,7 +48,7 @@ function showCurrentImage(evt) {
     evt.preventDefault();
     refs.currentImg.src = evt.target.dataset.source;
     refs.currentImg.alt = evt.target.alt;
-    console.log(refs.currentImg);
+    
 }
 
 function onModalClose() {
